@@ -25,6 +25,7 @@ editButton.addEventListener("click", () => {
 
 closeButton.addEventListener("click", () => {
   popup.classList.remove("popup_opened");
+  saveButton.disabled = false;
   saveButton.classList.remove("popup__save_disabled");
 })
 
