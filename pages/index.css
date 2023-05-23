@@ -1,4 +1,14 @@
 @import url("../vendor/normalize.css");
+@import url("../fonts/inter-web/inter.css");
 @import url("../blocks/page/page.css");
 @import url("../blocks/logo/logo.css");
 @import url("../blocks/header/header.css");
+@import url("../blocks/profile/profile.css");
+@import url("../blocks/profile-info/profile-info.css");
+
+@import url("../blocks/profile/__add-button/profile__add-button.css");
+@import url("../blocks/profile/__picture/profile__picture.css");
+@import url("../blocks/profile-info/__about/profile-info__about.css");
+@import url("../blocks/profile-info/__edit-button/profile-info__edit-button.css");
+@import url("../blocks/profile-info/__name/profile-info__name.css");
+@import url("../blocks/profile-info/__name-edit-container/profile-info__name-edit-container.css");

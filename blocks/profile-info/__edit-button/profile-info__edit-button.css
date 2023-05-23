@@ -1,0 +1,8 @@
+.profile-info__edit-button {
+  border: 1px solid #ffffff;
+  background-color: #000000;
+  width: 24px;
+  height: 24px;
+  align-self: flex-end;
+  margin-bottom: 9px;
+}
