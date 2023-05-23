@@ -6,3 +6,8 @@
   align-self: flex-end;
   margin-bottom: 9px;
 }
+
+.profile-info__edit-button:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
