@@ -17,73 +17,74 @@
       <img src="./images/profile-pic.jpg" alt="Profile Picture" class="profile__picture">
       <div class="profile-info">
         <div class="profile-info__name-edit-container">
-          <h2 class="profile-info__name">Jacques Cousteau</h2>
+          <h1 class="profile-info__name">Jacques Cousteau</h1>
           <button class="profile-info__edit-button" type="button"><img src="./images/profile-edit.png" alt="edit profile pencil image" class="profile-info__pencil-img"></button>
-      </div>
-
-      <!-- Popup box -->
-      <div class="popup">
-        <div class="popup__container">
-          <h2 class="popup__title">Edit profil</h2>
-          <input type="text" class="popup__input popup__input-name" placeholder="Nama">
-          <input type="text" class="popup__input popup__input-about" placeholder="Tentang Diriku">
-          <button class="popup__save" type="button">Simpan</button>
-          <img src="./images/close-icon.png" alt="icon tutup" class="popup__close-button">
-        </div>
-
       </div>
       <p class="profile-info__about">Penjelajah</p>
       </div>
-      <button class="profile__add-button"><img src="./images/addimg.png" alt="add image" class="profile__add-img"></button>
+      <button class="profile__add-button" type="button"><img src="./images/addimg.png" alt="add image" class="profile__add-img"></button>
     </section>
     <section class="elements">
-      <div class="element">
+      <article class="element">
         <img src="./images/post1.jpg" alt="Gambar Lembah Yosemite" class="element__image">
         <div class="element__description">
           <h2 class="element__title">Lembah Yosemite</h2>
-          <img src="images/like.svg" alt="Tombol Like" class="element__like-button">
+          <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
         </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
         <img src="./images/post2.jpg" alt="Gambar Danau Louise" class="element__image">
         <div class="element__description">
           <h2 class="element__title">Danau Louise</h2>
-          <img src="images/like.svg" alt="Tombol Like" class="element__like-button">
+          <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
         </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
         <img src="images/post3.jpg" alt="Gambar Pegunungan Gundul" class="element__image">
         <div class="element__description">
           <h2 class="element__title">Pegunungan Gundul</h2>
-          <img src="images/like.svg" alt="Tombol Like" class="element__like-button">
+          <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
         </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
         <img src="images/post4.jpg" alt="Gambar Latemar" class="element__image">
         <div class="element__description">
           <h2 class="element__title">Latemar</h2>
-          <img src="images/like.svg" alt="Tombol Like" class="element__like-button">
+          <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
         </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
         <img src="images/post5.jpg" alt="Gambar Venoise National" class="element__image">
         <div class="element__description">
           <h2 class="element__title">Venoise National</h2>
-          <img src="images/like.svg" alt="Tombol Like" class="element__like-button">
+          <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
         </div>
-      </div>
-      <div class="element">
+      </article>
+      <article class="element">
         <img src="images/post6.jpg" alt="Lago di Braies" class="element__image">
         <div class="element__description">
           <h2 class="element__title">Lago di Braies</h2>
-          <img src="images/like.svg" alt="Tombol Like" class="element__like-button">
+          <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
         </div>
-      </div>
+      </article>
     </section>
   </main>
   <footer class="footer">
     <p class="footer__copyright">© 2021 Around The U.S.</p>
   </footer>
+  </div>
+
+  <!-- Popup box for Edit Profile -->
+  <div class="popup">
+    <div class="popup__container">
+      <h2 class="popup__title">Edit profil</h2>
+      <form class="popup__form">
+        <input name="input-name" type="text" class="popup__input popup__input-name" placeholder="Nama">
+        <input name="input-about" type="text" class="popup__input popup__input-about" placeholder="Tentang Diriku">
+        <button name="simpan-button" class="popup__save" type="submit">Simpan</button>
+      </form>
+      <button class="profile__save-button" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-button"></button>
+    </div>
   </div>
   <script src="./scripts/script.js"></script>
 </body>
