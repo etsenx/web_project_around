@@ -7,19 +7,23 @@ const nameInput = document.querySelector('.popup__input-name');
 const aboutInput = document.querySelector('.popup__input-about');
 const popupForm = document.querySelector(".popup__form");
 
-editButton.addEventListener('click', () => {
+function edit() {
   nameInput.value = name.textContent;
   aboutInput.value = about.textContent;
   popup.classList.add('popup_opened');
-})
+}
 
-closeButton.addEventListener('click', () => {
+function close() {
   popup.classList.remove('popup_opened');
-})
+}
 
-popupForm.addEventListener('submit', (event) => {
+function save(event) {
   event.preventDefault();
   name.textContent = nameInput.value;
   about.textContent = aboutInput.value;
   popup.classList.remove('popup_opened');
-})
+}
+
+editButton.addEventListener('click', edit);
+closeButton.addEventListener('click', close);
+popupForm.addEventListener('submit', save);
