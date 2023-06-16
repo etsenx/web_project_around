@@ -30,11 +30,16 @@
         <!-- Element template -->
         <template id="element-template">
           <article class="element">
-            <img class="element__image">
+            <form>
+            <div style="position: relative;">
+              <img class="element__image">
+              <button type="button" class="element__delete-button"><img src="./images/trash-solid.svg" alt="trash icon" class="element__trash-image"></button>
+            </div>
             <div class="element__description">
               <h2 class="element__title"></h2>
               <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
             </div>
+          </form>
           </article>
         </template>
         <!-- Element template -->
@@ -46,7 +51,7 @@
   </div>
 
   <!-- Popup box for Edit Profile -->
-  <div class="popup popup_edit">
+  <div class="popup popup-edit">
     <div class="popup__container">
       <h2 class="popup__title">Edit profil</h2>
       <form class="popup__form" name="popup__edit-profile-form">
@@ -54,12 +59,12 @@
         <input name="input-about" type="text" class="popup__input popup__input-about" placeholder="Tentang Diriku">
         <button name="simpan-button" class="popup__save" type="submit">Simpan</button>
       </form>
-      <button class="popup__close-profile" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-button"></button>
+      <button class="popup__close" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-img"></button>
     </div>
   </div>
 
   <!-- Popup to add new Place -->
-  <div class="popup popup_add popup_opened">
+  <div class="popup popup-add">
     <div class="popup__container">
       <h2 class="popup__title">Tempat Baru</h2>
       <form class="popup__form" name="popup__add-card-form">
@@ -69,7 +74,7 @@
         <span class="popup__input-error" id="input-url-error"></span>
         <button name="simpan-button" class="popup__save popup__save_disabled" type="submit">Simpan</button>
       </form>
-      <button class="popup__close-profile" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-button"></button>
+      <button class="popup__close" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-img"></button>
     </div>
   </div>
 
