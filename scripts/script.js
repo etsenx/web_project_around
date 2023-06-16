@@ -71,8 +71,15 @@ function addCardPopupOpen() {
 }
 
 function closePopup() {
+  // Close Edit Profile Popup
   editProfilePopup.classList.remove("popup_opened");
+
+  // Close Add New Card Popup
   addCardPopup.classList.remove("popup_opened");
+  addCardInputTitle.style.borderColor = "";
+  addCardInputUrl.style.borderColor = "";
+  addCardInputTitle.value = "";
+  addCardInputUrl.value = "";
 }
 
 function save(event) {
@@ -83,10 +90,40 @@ function save(event) {
 }
 
 function isInputEmpty() {
-  const inputTitle = addCardInputTitle.value;
-  const inputUrl = addCardInputUrl.value;
   // Profile form
-  if (inputTitle === "" || inputUrl === "") {
+  const inputTitle = addCardInputTitle;
+  const inputUrl = addCardInputUrl;
+  const titleError = addCardPopup.querySelector("#input-title-error");
+  const urlError = addCardPopup.querySelector("#input-url-error");
+
+  // Check if input Title is valid / empty
+  if (!inputTitle.checkValidity()) {
+    inputTitle.style.borderColor = "red";
+    inputTitle.style.marginBottom = "5px";
+    titleError.textContent = "Silahkan isi kolom ini.";
+    titleError.style.marginBottom = "11px";
+  } else {
+    inputTitle.style.borderColor = "";
+    inputTitle.style.marginBottom = "30px";
+    titleError.textContent = "";
+    titleError.style.marginBottom = "0";
+  }
+
+  // Check if input Url is valid
+  if (!inputUrl.checkValidity()) {
+    inputUrl.style.borderColor = "red";
+    inputUrl.style.marginBottom = "5px";
+    urlError.textContent = "Silahkan masukkan alamat web.";
+    urlError.style.marginBottom = "29px";
+  } else {
+    inputUrl.style.borderColor = "";
+    inputUrl.style.marginBottom = "48px";
+    urlError.textContent = "";
+    urlError.style.marginBottom = "0";
+  }
+
+  // Save Button Enable / Disable
+  if (!inputTitle.checkValidity() || !inputUrl.checkValidity()) {
     saveButton.classList.add("popup__save_disabled");
   } else {
     saveButton.classList.remove("popup__save_disabled");
@@ -99,11 +136,11 @@ function addCard(event) {
   const inputUrl = addCardInputUrl.value;
   initialCards.unshift({
     name: inputTitle,
-    link: inputUrl
-  })
+    link: inputUrl,
+  });
   addCardPopup.classList.remove("popup_opened");
-  const newCard = createCard(initialCards[0])
-  elementSection.prepend(newCard)
+  const newCard = createCard(initialCards[0]);
+  elementSection.prepend(newCard);
 }
 
 editButton.addEventListener("click", editProfilePopupOpen);
@@ -111,7 +148,7 @@ allCloseButton.forEach((button) => {
   button.addEventListener("click", closePopup);
 });
 editPopupForm.addEventListener("submit", save);
-addCardInputTitle.addEventListener("keypress", isInputEmpty);
-addCardInputUrl.addEventListener("keypress", isInputEmpty);
+addCardInputTitle.addEventListener("keyup", isInputEmpty);
+addCardInputUrl.addEventListener("keyup", isInputEmpty);
 cardAddButton.addEventListener("click", addCardPopupOpen);
 addCardPopupForm.addEventListener("submit", addCard);

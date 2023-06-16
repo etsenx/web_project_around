@@ -59,12 +59,14 @@
   </div>
 
   <!-- Popup to add new Place -->
-  <div class="popup popup_add">
+  <div class="popup popup_add popup_opened">
     <div class="popup__container">
       <h2 class="popup__title">Tempat Baru</h2>
       <form class="popup__form" name="popup__add-card-form">
-        <input name="input-title" type="text" class="popup__input popup__input-title" placeholder="Judul:">
-        <input name="input-url" type="url" class="popup__input popup__input-url" placeholder="URL Gambar">
+        <input name="input-title" type="text" class="popup__input popup__input-title" placeholder="Judul:" required aria-invalid="true">
+        <span class="popup__input-error" id="input-title-error"></span>
+        <input name="input-url" type="url" class="popup__input popup__input-url" placeholder="URL Gambar" required>
+        <span class="popup__input-error" id="input-url-error"></span>
         <button name="simpan-button" class="popup__save popup__save_disabled" type="submit">Simpan</button>
       </form>
       <button class="popup__close-profile" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-button"></button>
