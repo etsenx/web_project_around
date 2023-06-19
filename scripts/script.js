@@ -48,7 +48,7 @@ const saveButton = addCardPopup.querySelector(".popup__save");
 const addCardPopupForm = addCardPopup.querySelector(".popup__form");
 
 // Image Popup
-const imagePopup = document.querySelector(".popup-image");
+const imagePopup = document.querySelector(".popup-img");
 
 initialCards.forEach((card) => {
   elementSection.append(createCard(card));
@@ -58,6 +58,7 @@ function createCard(card) {
   const elementTemplate = document.querySelector("#element-template").content;
   const newElement = elementTemplate.querySelector(".element").cloneNode(true);
   newElement.querySelector(".element__delete-button").addEventListener("click", deleteCard)
+  newElement.querySelector(".element__image").addEventListener("click", showImagePopup)
   newElement.querySelector(".element__title").textContent = card.name;
   newElement.querySelector(".element__image").src = card.link;
   newElement.querySelector(".element__image").alt = card.name;
@@ -85,8 +86,8 @@ function closePopup() {
   addCardInputTitle.value = "";
   addCardInputUrl.value = "";
 
-  // Close Image Popup
-  imagePopup.classList.remove("popup_opened");
+  // Close Image Detail Popup
+  imagePopup.classList.remove("popup_opened")
 }
 
 function save(event) {
@@ -163,6 +164,18 @@ editButton.addEventListener("click", editProfilePopupOpen);
 allCloseButton.forEach((button) => {
   button.addEventListener("click", closePopup);
 });
+
+// Image Popup
+function showImagePopup(event) {
+  event.preventDefault();
+  const selectedElement = event.target.parentElement.parentElement.parentElement;
+  const selectedElementName = selectedElement.querySelector(".element__title").textContent;
+  const selectedElementImageUrl = selectedElement.querySelector(".element__image").src;
+  imagePopup.querySelector(".popup-img__name").textContent = selectedElementName;
+  imagePopup.querySelector(".popup-img__img").src = selectedElementImageUrl;
+  imagePopup.querySelector(".popup-img__img").alt = selectedElement
+  imagePopup.classList.add("popup_opened");
+}
 
 editPopupForm.addEventListener("submit", save);
 addCardInputTitle.addEventListener("keyup", isInputEmpty);

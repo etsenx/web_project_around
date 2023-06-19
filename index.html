@@ -1,84 +1,171 @@
 <!DOCTYPE html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Around The US</title>
+    <link rel="stylesheet" href="./pages/index.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Around The US</title>
-  <link rel="stylesheet" href="./pages/index.css">
-</head>
-
-<body>
-  <div class="page">
-    <header class="header">
-      <img src="./images/Logo.png" alt="Around The US Logo" class="logo">
-    </header>
-    <main class="main">
-      <section class="profile">
-        <img src="./images/profile-pic.jpg" alt="Profile Picture" class="profile__picture">
-        <div class="profile-info">
-          <div class="profile-info__name-edit-container">
-            <h1 class="profile-info__name">Jacques Cousteau</h1>
-            <button class="profile-info__edit-button" type="button"><img src="./images/profile-edit.png" alt="edit profile pencil image" class="profile-info__pencil-img"></button>
+  <body>
+    <div class="page">
+      <header class="header">
+        <img src="./images/Logo.png" alt="Around The US Logo" class="logo" />
+      </header>
+      <main class="main">
+        <section class="profile">
+          <img
+            src="./images/profile-pic.jpg"
+            alt="Profile Picture"
+            class="profile__picture"
+          />
+          <div class="profile-info">
+            <div class="profile-info__name-edit-container">
+              <h1 class="profile-info__name">Jacques Cousteau</h1>
+              <button class="profile-info__edit-button" type="button">
+                <img
+                  src="./images/profile-edit.png"
+                  alt="edit profile pencil image"
+                  class="profile-info__pencil-img"
+                />
+              </button>
+            </div>
+            <p class="profile-info__about">Penjelajah</p>
           </div>
-          <p class="profile-info__about">Penjelajah</p>
-        </div>
-        <button class="profile__add-button" type="button"><img src="./images/addimg.png" alt="add image" class="profile__add-img"></button>
-      </section>
-      <section class="elements">
-        <!-- Element template -->
-        <template id="element-template">
-          <article class="element">
-            <form>
-            <div style="position: relative;">
-              <img class="element__image">
-              <button type="button" class="element__delete-button"><img src="./images/trash-solid.svg" alt="trash icon" class="element__trash-image"></button>
-            </div>
-            <div class="element__description">
-              <h2 class="element__title"></h2>
-              <button type="button" class="element__like-button"><img src="images/like.svg" alt="Tombol Like" class="element__like-img"></button>
-            </div>
-          </form>
-          </article>
-        </template>
-        <!-- Element template -->
-      </section>
-    </main>
-    <footer class="footer">
-      <p class="footer__copyright">© 2021 Around The U.S.</p>
-    </footer>
-  </div>
-
-  <!-- Popup box for Edit Profile -->
-  <div class="popup popup-edit">
-    <div class="popup__container">
-      <h2 class="popup__title">Edit profil</h2>
-      <form class="popup__form" name="popup__edit-profile-form">
-        <input name="input-name" type="text" class="popup__input popup__input-name" placeholder="Nama">
-        <input name="input-about" type="text" class="popup__input popup__input-about" placeholder="Tentang Diriku">
-        <button name="simpan-button" class="popup__save" type="submit">Simpan</button>
-      </form>
-      <button class="popup__close" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-img"></button>
+          <button class="profile__add-button" type="button">
+            <img
+              src="./images/addimg.png"
+              alt="add image"
+              class="profile__add-img"
+            />
+          </button>
+        </section>
+        <section class="elements">
+          <!-- Element template -->
+          <template id="element-template">
+            <article class="element">
+              <form>
+                <div style="position: relative">
+                  <img class="element__image" />
+                  <button type="button" class="element__delete-button">
+                    <img
+                      src="./images/trash-solid.svg"
+                      alt="trash icon"
+                      class="element__trash-image"
+                    />
+                  </button>
+                </div>
+                <div class="element__description">
+                  <h2 class="element__title"></h2>
+                  <button type="button" class="element__like-button">
+                    <img
+                      src="images/like.svg"
+                      alt="Tombol Like"
+                      class="element__like-img"
+                    />
+                  </button>
+                </div>
+              </form>
+            </article>
+          </template>
+          <!-- Element template -->
+        </section>
+      </main>
+      <footer class="footer">
+        <p class="footer__copyright">© 2021 Around The U.S.</p>
+      </footer>
     </div>
-  </div>
 
-  <!-- Popup to add new Place -->
-  <div class="popup popup-add">
-    <div class="popup__container">
-      <h2 class="popup__title">Tempat Baru</h2>
-      <form class="popup__form" name="popup__add-card-form">
-        <input name="input-title" type="text" class="popup__input popup__input-title" placeholder="Judul:" required aria-invalid="true">
-        <span class="popup__input-error" id="input-title-error"></span>
-        <input name="input-url" type="url" class="popup__input popup__input-url" placeholder="URL Gambar" required>
-        <span class="popup__input-error" id="input-url-error"></span>
-        <button name="simpan-button" class="popup__save popup__save_disabled" type="submit">Simpan</button>
-      </form>
-      <button class="popup__close" type="button"><img src="./images/close-icon.png" alt="icon tutup" class="popup__close-img"></button>
+    <!-- Popup box for Edit Profile -->
+    <div class="popup popup-edit">
+      <div class="popup__container">
+        <h2 class="popup__title">Edit profil</h2>
+        <form class="popup__form" name="popup__edit-profile-form">
+          <input
+            name="input-name"
+            type="text"
+            class="popup__input popup__input-name"
+            placeholder="Nama"
+          />
+          <input
+            name="input-about"
+            type="text"
+            class="popup__input popup__input-about"
+            placeholder="Tentang Diriku"
+          />
+          <button name="simpan-button" class="popup__save" type="submit">
+            Simpan
+          </button>
+        </form>
+        <button class="popup__close" type="button">
+          <img
+            src="./images/close-icon.png"
+            alt="icon tutup"
+            class="popup__close-img"
+          />
+        </button>
+      </div>
     </div>
-  </div>
 
-  <script src="./scripts/script.js"></script>
-</body>
+    <!-- Popup to add new Place -->
+    <div class="popup popup-add">
+      <div class="popup__container">
+        <h2 class="popup__title">Tempat Baru</h2>
+        <form class="popup__form" name="popup__add-card-form">
+          <input
+            name="input-title"
+            type="text"
+            class="popup__input popup__input-title"
+            placeholder="Judul:"
+            required
+            aria-invalid="true"
+          />
+          <span class="popup__input-error" id="input-title-error"></span>
+          <input
+            name="input-url"
+            type="url"
+            class="popup__input popup__input-url"
+            placeholder="URL Gambar"
+            required
+          />
+          <span class="popup__input-error" id="input-url-error"></span>
+          <button
+            name="simpan-button"
+            class="popup__save popup__save_disabled"
+            type="submit"
+          >
+            Simpan
+          </button>
+        </form>
+        <button class="popup__close" type="button">
+          <img
+            src="./images/close-icon.png"
+            alt="icon tutup"
+            class="popup__close-img"
+          />
+        </button>
+      </div>
+    </div>
 
+    <!-- Image Popup when Clicked -->
+    <div class="popup popup-img">
+      <div class="popup__container popup-img__container">
+        <img
+          class="popup-img__img"
+          src="https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg"
+          alt="image"
+        />
+        <p class="popup-img__name">Lembah Yosemite</p>
+        <button class="popup__close" type="button">
+          <img
+            src="./images/close-icon.png"
+            alt="icon tutup"
+            class="popup__close-img  popup-img__close-img"
+          />
+        </button>
+      </div>
+    </div>
+    <script src="./scripts/script.js"></script>
+  </body>
 </html>
