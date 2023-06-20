@@ -175,7 +175,7 @@ function likeCard(event) {
   event.preventDefault();
   const selectedElement =
     event.target.parentElement.parentElement.parentElement;
-  let selectedElementLikeImg =
+  const selectedElementLikeImg =
     selectedElement.querySelector(".element__like-img");
   const liked = selectedElementLikeImg.classList.contains("liked");
   if (liked) {
