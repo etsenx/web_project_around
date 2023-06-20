@@ -4,7 +4,7 @@
   margin: auto 30px auto 0;
 }
 
-.element__like-img:active {
+/* .element__like-img:active {
   opacity: 100%;
   background-image: url("../../../images/like\(filled\).svg");
-}
+} */

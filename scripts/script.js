@@ -57,8 +57,15 @@ initialCards.forEach((card) => {
 function createCard(card) {
   const elementTemplate = document.querySelector("#element-template").content;
   const newElement = elementTemplate.querySelector(".element").cloneNode(true);
-  newElement.querySelector(".element__delete-button").addEventListener("click", deleteCard)
-  newElement.querySelector(".element__image").addEventListener("click", showImagePopup)
+  newElement
+    .querySelector(".element__delete-button")
+    .addEventListener("click", deleteCard);
+  newElement
+    .querySelector(".element__image")
+    .addEventListener("click", showImagePopup);
+  newElement
+    .querySelector(".element__like-button")
+    .addEventListener("click", likeCard);
   newElement.querySelector(".element__title").textContent = card.name;
   newElement.querySelector(".element__image").src = card.link;
   newElement.querySelector(".element__image").alt = card.name;
@@ -87,7 +94,7 @@ function closePopup() {
   addCardInputUrl.value = "";
 
   // Close Image Detail Popup
-  imagePopup.classList.remove("popup_opened")
+  imagePopup.classList.remove("popup_opened");
 }
 
 function save(event) {
@@ -153,30 +160,53 @@ function addCard(event) {
 
 function deleteCard(event) {
   event.preventDefault();
-  const selectedElement = event.target.parentElement.parentElement.parentElement.parentElement;
-  const selectedElementTitle = selectedElement.querySelector(".element__title").textContent;
-  const arrayIndex = initialCards.findIndex(card => card.name === selectedElementTitle);
+  const selectedElement =
+    event.target.parentElement.parentElement.parentElement.parentElement;
+  const selectedElementTitle =
+    selectedElement.querySelector(".element__title").textContent;
+  const arrayIndex = initialCards.findIndex(
+    (card) => card.name === selectedElementTitle
+  );
   initialCards.splice(arrayIndex, 1);
   selectedElement.remove();
+}
+
+function likeCard(event) {
+  event.preventDefault();
+  const selectedElement =
+    event.target.parentElement.parentElement.parentElement;
+  let selectedElementLikeImg =
+    selectedElement.querySelector(".element__like-img");
+  const liked = selectedElementLikeImg.classList.contains("liked");
+  if (liked) {
+    selectedElementLikeImg.src = "images/like.svg";
+    selectedElementLikeImg.classList.remove("liked");
+  } else {
+    selectedElementLikeImg.src = "images/like(filled).svg";
+    selectedElementLikeImg.classList.add("liked");
+  }
+}
+
+// Image Popup
+function showImagePopup(event) {
+  event.preventDefault();
+  const selectedElement =
+    event.target.parentElement.parentElement.parentElement;
+  const selectedElementName =
+    selectedElement.querySelector(".element__title").textContent;
+  const selectedElementImageUrl =
+    selectedElement.querySelector(".element__image").src;
+  imagePopup.querySelector(".popup-img__name").textContent =
+    selectedElementName;
+  imagePopup.querySelector(".popup-img__img").src = selectedElementImageUrl;
+  imagePopup.querySelector(".popup-img__img").alt = selectedElement;
+  imagePopup.classList.add("popup_opened");
 }
 
 editButton.addEventListener("click", editProfilePopupOpen);
 allCloseButton.forEach((button) => {
   button.addEventListener("click", closePopup);
 });
-
-// Image Popup
-function showImagePopup(event) {
-  event.preventDefault();
-  const selectedElement = event.target.parentElement.parentElement.parentElement;
-  const selectedElementName = selectedElement.querySelector(".element__title").textContent;
-  const selectedElementImageUrl = selectedElement.querySelector(".element__image").src;
-  imagePopup.querySelector(".popup-img__name").textContent = selectedElementName;
-  imagePopup.querySelector(".popup-img__img").src = selectedElementImageUrl;
-  imagePopup.querySelector(".popup-img__img").alt = selectedElement
-  imagePopup.classList.add("popup_opened");
-}
-
 editPopupForm.addEventListener("submit", save);
 addCardInputTitle.addEventListener("keyup", isInputEmpty);
 addCardInputUrl.addEventListener("keyup", isInputEmpty);

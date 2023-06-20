@@ -9,10 +9,3 @@
   cursor: pointer;
   opacity: 60%;
 }
-
-.element__like-button:active {
-  opacity: 100%;
-  background-image: url("../../../images/like\(filled\).svg");
-  background-repeat: no-repeat;
-  background-position: center;
-}
