@@ -1,4 +1,6 @@
-const initialCards = [
+import Card from "./Card.js";
+
+export const initialCards = [
   {
     name: "Lembah Yosemite",
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
@@ -52,26 +54,9 @@ const addCardPopupForm = addCardPopup.querySelector(".popup__form");
 const imagePopup = document.querySelector(".popup-img");
 
 initialCards.forEach((card) => {
-  elementSection.append(createCard(card));
+  const newCard = new Card(card, "#element-template");
+  elementSection.append(newCard.createCard());
 });
-
-function createCard(card) {
-  const elementTemplate = document.querySelector("#element-template").content;
-  const newElement = elementTemplate.querySelector(".element").cloneNode(true);
-  newElement
-    .querySelector(".element__delete-button")
-    .addEventListener("click", deleteCard);
-  newElement
-    .querySelector(".element__image")
-    .addEventListener("click", showImagePopup);
-  newElement
-    .querySelector(".element__like-button")
-    .addEventListener("click", likeCard);
-  newElement.querySelector(".element__title").textContent = card.name;
-  newElement.querySelector(".element__image").src = card.link;
-  newElement.querySelector(".element__image").alt = card.name;
-  return newElement;
-}
 
 function editProfilePopupOpen() {
   editPopupNameInput.value = profileName.textContent;
@@ -117,57 +102,11 @@ function addCard(event) {
     link: inputUrl,
   });
   addCardPopup.classList.remove("popup_opened");
-  const newCard = createCard(initialCards[0]);
-  elementSection.prepend(newCard);
+  const newCard = new Card(initialCards[0], "#element-template");
+  elementSection.prepend(newCard.createCard());
 }
 
-function deleteCard(event) {
-  event.preventDefault();
-  const selectedElement =
-    event.target.parentElement.parentElement.parentElement.parentElement;
-  const selectedElementTitle =
-    selectedElement.querySelector(".element__title").textContent;
-  const arrayIndex = initialCards.findIndex(
-    (card) => card.name === selectedElementTitle
-  );
-  initialCards.splice(arrayIndex, 1);
-  selectedElement.remove();
-}
-
-function likeCard(event) {
-  event.preventDefault();
-  const selectedElement =
-    event.target.parentElement.parentElement.parentElement;
-  const selectedElementLikeImg =
-    selectedElement.querySelector(".element__like-img");
-  const liked = selectedElementLikeImg.classList.contains("liked");
-  if (liked) {
-    selectedElementLikeImg.src = "images/like.svg";
-    selectedElementLikeImg.classList.remove("liked");
-  } else {
-    selectedElementLikeImg.src = "images/like(filled).svg";
-    selectedElementLikeImg.classList.add("liked");
-  }
-}
-
-// Image Popup
-function showImagePopup(event) {
-  event.preventDefault();
-  const selectedElement =
-    event.target.parentElement.parentElement.parentElement;
-  const selectedElementName =
-    selectedElement.querySelector(".element__title").textContent;
-  const selectedElementImageUrl =
-    selectedElement.querySelector(".element__image").src;
-  imagePopup.querySelector(".popup-img__name").textContent =
-    selectedElementName;
-  imagePopup.querySelector(".popup-img__img").src = selectedElementImageUrl;
-  imagePopup.querySelector(".popup-img__img").alt = selectedElement;
-  imagePopup.classList.add("popup_opened");
-  document.addEventListener("keyup", addEscListener);
-}
-
-function addEscListener(event) {
+export function addEscListener(event) {
   if (event.key === "Escape") {
     closePopup();
   }
