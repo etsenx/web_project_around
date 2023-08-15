@@ -1,4 +1,5 @@
-import { addEscListener, initialCards } from "./script.js";
+import { initialCards } from "./index.js";
+import { addEscListener } from "./utils.js";
 
 export default class Card {
   constructor(cardData, templateSelector) {
