@@ -1,4 +1,5 @@
 import Card from "./Card.js";
+import Section from "./Section.js";
 import FormValidator from "./FormValidator.js";
 
 export const initialCards = [
@@ -28,18 +29,19 @@ export const initialCards = [
   },
 ];
 
-const elementSection = document.querySelector(".elements");
-
 // Edit Profile Popup
 const editProfilePopup = document.querySelector(".popup-edit");
 const editPopupForm = editProfilePopup.querySelector(".popup__form");
-const editPopupFormValidator = new FormValidator({
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save",
-  inactiveButtonClass: "popup__save_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-}, editPopupForm);
+const editPopupFormValidator = new FormValidator(
+  {
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__save",
+    inactiveButtonClass: "popup__save_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible",
+  },
+  editPopupForm
+);
 editPopupFormValidator.enableValidation();
 
 // Add Card Popup
@@ -48,17 +50,30 @@ const addCardInputTitle = addCardPopup.querySelector(".popup__input-title");
 const addCardInputUrl = addCardPopup.querySelector(".popup__input-url");
 const saveButton = addCardPopup.querySelector(".popup__save");
 const addCardPopupForm = addCardPopup.querySelector(".popup__form");
-const addCardPopupFormValidator = new FormValidator({
-  inputSelector: ".popup__input",
-  submitButtonSelector: ".popup__save",
-  inactiveButtonClass: "popup__save_disabled",
-  inputErrorClass: "popup__input_type_error",
-  errorClass: "popup__error_visible",
-}, addCardPopupForm);
+const addCardPopupFormValidator = new FormValidator(
+  {
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__save",
+    inactiveButtonClass: "popup__save_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible",
+  },
+  addCardPopupForm
+);
 addCardPopupFormValidator.enableValidation();
 
-initialCards.forEach((card) => {
-  const newCard = new Card(card, "#element-template");
-  elementSection.append(newCard.createCard());
-});
+// Create Card Section
+const cardSection = new Section(
+  {
+    // Initial Card Elements
+    items: initialCards,
+    // Create Card Element method
+    renderer: (card) => {
+      const newCard = new Card(card, "#element-template");
+      cardSection.addItem(newCard.createCard());
+    },
+  },
+  ".elements"
+);
 
+cardSection.renderItems();

@@ -38,8 +38,9 @@ export default class Card {
   // Event handler
   _deleteCard(event) {
     event.preventDefault();
-    const selectedElement =
-      event.target.parentElement.parentElement.parentElement.parentElement;
+    // const selectedElement =
+      // event.target.parentElement.parentElement.parentElement.parentElement;
+    const selectedElement = event.target.closest(".element");
     const selectedElementTitle =
       selectedElement.querySelector(".element__title").textContent;
     const arrayIndex = initialCards.findIndex(
@@ -51,8 +52,7 @@ export default class Card {
 
   _likeCard(event) {
     event.preventDefault();
-    const selectedElement =
-      event.target.parentElement.parentElement.parentElement;
+    const selectedElement = event.target.closest(".element")
     const selectedElementLikeImg =
       selectedElement.querySelector(".element__like-img");
     const liked = selectedElementLikeImg.classList.contains("liked");
