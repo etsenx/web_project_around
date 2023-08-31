@@ -117,7 +117,7 @@ cardSection.renderItems();
 const elementSection = document.querySelector(".elements");
 const addCardPopupClass = new PopupWithForm(() => {
   const inputTitle = addCardPopupClass._getInputValues(".popup__input-title");
-  const inputUrl = addCardPopupClass._getInputValues(".popup__input-title");
+  const inputUrl = addCardPopupClass._getInputValues(".popup__input-url");
   initialCards.unshift({
     name: inputTitle,
     link: inputUrl,
