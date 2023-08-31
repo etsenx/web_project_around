@@ -13,27 +13,32 @@ export default class Popup {
 
   _handleEscClose(evt) {
     if (evt.key === "Escape") {
-      this.close();
+      if (this._popup.classList.contains("popup_opened")) {
+        this.close();
+      }
     }
   }
 
   setEventListeners() {
+    // Add Close Button Listener
     const closeButton = this._popup.querySelector(".popup__close");
     closeButton.addEventListener("click", () => {
       this.close();
     });
-    // const popupContainer = this._popup.querySelector(".popup__container");
-    // popupContainer.addEventListener("mouseleave", () => {
-    //   this._popup.style.cursor = "pointer";
-    //   this._popup.addEventListener("mousedown", () => {
-    //     this.close();
-    //   });
-    // })
-    // popupContainer.addEventListener("mouseover", () => {
-    //   this._popup.style.cursor = "default";
-    //   this._popup.addEventListener("mousedown", () => {
-    //     this.open();
-    //   })
-    // })
+
+    // Add Esc Listener
+    document.addEventListener("keyup", this._handleEscClose.bind(this));
+
+    // Add click outside of popup listener
+    const popupContainer = this._popup.querySelector(".popup__container");
+    const closeFunction = this.close.bind(this);
+    popupContainer.addEventListener("mouseleave", () => {
+      this._popup.style.cursor = "pointer";
+      this._popup.addEventListener("mousedown", closeFunction);
+    })
+    popupContainer.addEventListener("mouseover", () => {
+      this._popup.style.cursor = "default";
+      this._popup.removeEventListener("mousedown", closeFunction);
+    })
   }
 }
