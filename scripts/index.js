@@ -1,6 +1,8 @@
-import Card from "./Card.js";
-import Section from "./Section.js";
-import FormValidator from "./FormValidator.js";
+import Card from "../components/Card.js";
+import Section from "../components/Section.js";
+import FormValidator from "../components/FormValidator.js";
+import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 export const initialCards = [
   {
@@ -44,11 +46,29 @@ const editPopupFormValidator = new FormValidator(
 );
 editPopupFormValidator.enableValidation();
 
+// Edit Profile Popup Form
+const profileName = document.querySelector(".profile-info__name");
+const profileAbout = document.querySelector(".profile-info__about");
+const editPopupNameInput = editProfilePopup.querySelector(".popup__input-name");
+const editPopupAboutInput = editProfilePopup.querySelector(
+  ".popup__input-about"
+);
+const editProfilePopupClass = new PopupWithForm(() => {
+  profileName.textContent = editProfilePopupClass._getInputValues(".popup__input-name");
+  profileAbout.textContent = editProfilePopupClass._getInputValues(".popup__input-about");
+  editProfilePopup.classList.remove("popup_opened");
+}, editProfilePopup)
+editProfilePopupClass.setEventListeners();
+
+const editButton = document.querySelector(".profile-info__edit-button");
+editButton.addEventListener("click", () => {
+  editPopupNameInput.value = profileName.textContent;
+  editPopupAboutInput.value = profileAbout.textContent;
+  editProfilePopupClass.open();
+});
+
 // Add Card Popup
 const addCardPopup = document.querySelector(".popup-add");
-const addCardInputTitle = addCardPopup.querySelector(".popup__input-title");
-const addCardInputUrl = addCardPopup.querySelector(".popup__input-url");
-const saveButton = addCardPopup.querySelector(".popup__save");
 const addCardPopupForm = addCardPopup.querySelector(".popup__form");
 const addCardPopupFormValidator = new FormValidator(
   {
@@ -61,6 +81,7 @@ const addCardPopupFormValidator = new FormValidator(
   addCardPopupForm
 );
 addCardPopupFormValidator.enableValidation();
+
 
 // Create Card Section
 const cardSection = new Section(
@@ -77,3 +98,22 @@ const cardSection = new Section(
 );
 
 cardSection.renderItems();
+
+// Add New Card Popup Form
+const addCardPopupClass = new PopupWithForm(() => {
+  const inputTitle = addCardPopupClass._getInputValues(".popup__input-title");
+  const inputUrl = addCardPopupClass._getInputValues(".popup__input-title");
+  initialCards.unshift({
+    name: inputTitle,
+    link: inputUrl,
+  });
+  addCardPopup.classList.remove("popup_opened");
+  const newCard = new Card(initialCards[0], "#element-template");
+  elementSection.prepend(newCard.createCard());
+}, addCardPopup);
+addCardPopupClass.setEventListeners();
+
+const cardAddButton = document.querySelector(".profile__add-button");
+cardAddButton.addEventListener("click", () => {
+  addCardPopupClass.open();
+});

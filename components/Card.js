@@ -1,5 +1,5 @@
-import { initialCards } from "./index.js";
-import { addEscListener } from "./utils.js";
+import { initialCards } from "../scripts/index.js";
+// import { addEscListener } from "./utils.js";
 
 export default class Card {
   constructor(cardData, templateSelector) {
@@ -38,8 +38,6 @@ export default class Card {
   // Event handler
   _deleteCard(event) {
     event.preventDefault();
-    // const selectedElement =
-      // event.target.parentElement.parentElement.parentElement.parentElement;
     const selectedElement = event.target.closest(".element");
     const selectedElementTitle =
       selectedElement.querySelector(".element__title").textContent;
@@ -69,7 +67,7 @@ export default class Card {
     const imagePopup = document.querySelector(".popup-img");
     event.preventDefault();
     const selectedElement =
-      event.target.parentElement.parentElement.parentElement;
+      event.target.closest(".element");
     const selectedElementName =
       selectedElement.querySelector(".element__title").textContent;
     const selectedElementImageUrl =
