@@ -3,6 +3,7 @@ import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import UserInfo from "../components/UserInfo.js";
 
 export const initialCards = [
   {
@@ -46,24 +47,30 @@ const editPopupFormValidator = new FormValidator(
 );
 editPopupFormValidator.enableValidation();
 
+
 // Edit Profile Popup Form
 const profileName = document.querySelector(".profile-info__name");
 const profileAbout = document.querySelector(".profile-info__about");
 const editPopupNameInput = editProfilePopup.querySelector(".popup__input-name");
-const editPopupAboutInput = editProfilePopup.querySelector(
-  ".popup__input-about"
-);
+const editPopupAboutInput = editProfilePopup.querySelector(".popup__input-about");
+
+// User Data
+const newUser = new UserInfo({
+  name: profileName.textContent,
+  about: profileAbout.textContent
+})
+
 const editProfilePopupClass = new PopupWithForm(() => {
-  profileName.textContent = editProfilePopupClass._getInputValues(".popup__input-name");
-  profileAbout.textContent = editProfilePopupClass._getInputValues(".popup__input-about");
+  newUser.setUserInfo();
   editProfilePopup.classList.remove("popup_opened");
 }, editProfilePopup)
 editProfilePopupClass.setEventListeners();
 
 const editButton = document.querySelector(".profile-info__edit-button");
 editButton.addEventListener("click", () => {
-  editPopupNameInput.value = profileName.textContent;
-  editPopupAboutInput.value = profileAbout.textContent;
+  const userInfo = newUser.getUserInfo();
+  editPopupNameInput.value = userInfo.name;
+  editPopupAboutInput.value = userInfo.about;
   editProfilePopupClass.open();
 });
 
