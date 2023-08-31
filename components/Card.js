@@ -1,11 +1,11 @@
 import { initialCards } from "../scripts/index.js";
-// import { addEscListener } from "./utils.js";
 
 export default class Card {
-  constructor(cardData, templateSelector) {
+  constructor(cardData, templateSelector, handleCardClick) {
     this.name = cardData.name;
     this.link = cardData.link;
     this.template = templateSelector;
+    this.handleCardClick = handleCardClick;
   }
 
   _getElement() {
@@ -20,7 +20,7 @@ export default class Card {
   createCard() {
     const newCardElement = this._getElement();
     this._setEventListener(newCardElement, ".element__delete-button", "click", this._deleteCard);
-    this._setEventListener(newCardElement, ".element__image", "click", this._showImagePopup);
+    this._setEventListener(newCardElement, ".element__image", "click", this.handleCardClick);
     this._setEventListener(newCardElement, ".element__like-button", "click", this._likeCard);
     newCardElement.querySelector(".element__title").textContent = this.name;
     newCardElement.querySelector(".element__image").src = this.link;
@@ -61,23 +61,6 @@ export default class Card {
       selectedElementLikeImg.src = "images/like(filled).svg";
       selectedElementLikeImg.classList.add("liked");
     }
-  }
-
-  _showImagePopup(event) {
-    const imagePopup = document.querySelector(".popup-img");
-    event.preventDefault();
-    const selectedElement =
-      event.target.closest(".element");
-    const selectedElementName =
-      selectedElement.querySelector(".element__title").textContent;
-    const selectedElementImageUrl =
-      selectedElement.querySelector(".element__image").src;
-    imagePopup.querySelector(".popup-img__name").textContent =
-      selectedElementName;
-    imagePopup.querySelector(".popup-img__img").src = selectedElementImageUrl;
-    imagePopup.querySelector(".popup-img__img").alt = selectedElement;
-    imagePopup.classList.add("popup_opened");
-    document.addEventListener("keyup", addEscListener);
   }
 
 }

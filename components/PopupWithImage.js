@@ -3,7 +3,6 @@ import Popup from "./Popup.js";
 export default class PopupWithImage extends Popup {
   open(evt) {
     super.open();
-    evt.preventDefault;
     const selectedElement = evt.target.closest(".element");
     const selectedElementName = selectedElement.querySelector(".element__title").textContent;
     const selectedElementImageUrl = selectedElement.querySelector(".element__image").src;

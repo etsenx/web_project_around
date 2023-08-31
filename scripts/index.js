@@ -89,6 +89,10 @@ const addCardPopupFormValidator = new FormValidator(
 );
 addCardPopupFormValidator.enableValidation();
 
+// Card Img Popup
+const imgPopupSelector = document.querySelector(".popup-img");
+const imgPopup = new PopupWithImage(imgPopupSelector);
+imgPopup.setEventListeners();
 
 // Create Card Section
 const cardSection = new Section(
@@ -97,7 +101,9 @@ const cardSection = new Section(
     items: initialCards,
     // Create Card Element method
     renderer: (card) => {
-      const newCard = new Card(card, "#element-template");
+      const newCard = new Card(card, "#element-template", (evt) => {
+        imgPopup.open(evt);
+      });
       cardSection.addItem(newCard.createCard());
     },
   },
