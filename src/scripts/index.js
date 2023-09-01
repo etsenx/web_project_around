@@ -63,7 +63,7 @@ const newUser = new UserInfo({
 
 const editProfilePopupClass = new PopupWithForm(() => {
   newUser.setUserInfo();
-  editProfilePopup.close();
+  editProfilePopupClass.close();
 }, editProfilePopup)
 editProfilePopupClass.setEventListeners();
 
