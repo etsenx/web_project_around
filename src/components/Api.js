@@ -74,35 +74,72 @@ export default class Api {
         link,
       }),
     })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    })
-    .then((newCard) => {
-      return Promise.resolve(newCard);
-    })
-    .catch((err) => {
-      return Promise.reject(err);
-    })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((newCard) => {
+        return Promise.resolve(newCard);
+      })
+      .catch((err) => {
+        return Promise.reject(err);
+      });
     return newCard;
   }
 
   deleteCard(cardId) {
     fetch(`${this.baseUrl}/cards/${cardId}`, {
       method: "DELETE",
-      headers: this.headers
+      headers: this.headers,
     })
-    .then((res) => {
-      if (res.status === 200) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .catch((err) => {
+        return Promise.reject(err);
+      });
+  }
+
+  likeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: "PUT",
+      headers: this.headers,
     })
-    .catch((err) => {
-      return Promise.reject(err);
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((cardData) => {
+        return cardData.likes.length;
+      })
+      .catch((err) => {
+        return Promise.reject(err);
+      });
+  }
+
+  unlikeCard(cardId) {
+    return fetch(`${this.baseUrl}/cards/likes/${cardId}`, {
+      method: "DELETE",
+      headers: this.headers,
     })
+      .then((res) => {
+        if (res.status === 200) {
+          return res.json();
+        }
+        return Promise.reject(`Error: ${res.status}`);
+      })
+      .then((cardData) => {
+        return cardData.likes.length;
+      })
+      .catch((err) => {
+        return Promise.reject(err);
+      });
   }
 }
-

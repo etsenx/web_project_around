@@ -32,6 +32,13 @@ export default class Card {
     newCardElement.querySelector(".element__title").textContent = this.name;
     newCardElement.querySelector(".element__image").src = this.link;
     newCardElement.querySelector(".element__image").alt = this.name;
+    this.likes.forEach((userWhoLiked) => {
+      if (currentUserId === userWhoLiked._id) {
+        const currentLikeImg = newCardElement.querySelector(".element__like-img");
+        currentLikeImg.src = likeImgFilled;
+        currentLikeImg.classList.add("liked");
+      }
+    })
     if (this.cardOwner._id !== currentUserId) {
       newCardElement.querySelector(".element__delete-button").style.display = "none";
     }
@@ -59,16 +66,21 @@ export default class Card {
 
   }
 
-  _likeCard(event) {
+  async _likeCard(event) {
     event.preventDefault();
     const selectedElement = event.target.closest(".element")
     const selectedElementLikeImg =
       selectedElement.querySelector(".element__like-img");
+      const likesCounter = selectedElement.querySelector(".element__like-counter");
     const liked = selectedElementLikeImg.classList.contains("liked");
     if (liked) {
+      const currentCardLikes = await api.unlikeCard(selectedElement.id);
+      likesCounter.textContent = currentCardLikes;
       selectedElementLikeImg.src = likeImg;
       selectedElementLikeImg.classList.remove("liked");
     } else {
+      const currentCardLikes = await api.likeCard(selectedElement.id);
+      likesCounter.textContent = currentCardLikes;
       selectedElementLikeImg.src = likeImgFilled;
       selectedElementLikeImg.classList.add("liked");
     }
