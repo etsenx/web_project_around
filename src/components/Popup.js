@@ -19,6 +19,10 @@ export default class Popup {
     }
   }
 
+  getSaveButton() {
+    return this._popup.querySelector(".popup__save");
+  }
+
   setEventListeners() {
     // Add Close Button Listener
     const closeButton = this._popup.querySelector(".popup__close");

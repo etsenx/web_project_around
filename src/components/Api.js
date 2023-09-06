@@ -78,7 +78,6 @@ export default class Api {
       if (res.status === 200) {
         return res.json();
       }
-      console.log("errorhere");
       return Promise.reject(`Error: ${res.status}`);
     })
     .then((newCard) => {
@@ -89,4 +88,21 @@ export default class Api {
     })
     return newCard;
   }
+
+  deleteCard(cardId) {
+    fetch(`${this.baseUrl}/cards/${cardId}`, {
+      method: "DELETE",
+      headers: this.headers
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    })
+  }
 }
+

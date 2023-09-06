@@ -1,6 +1,7 @@
 import Card from "../components/Card.js";
 import Section from "../components/Section.js";
 import FormValidator from "../components/FormValidator.js";
+import Popup from "../components/Popup.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
@@ -49,7 +50,7 @@ import "../pages/index.css";
 //   },
 // ];
 
-const api = new Api({
+export const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/web_id_03",
   headers: {
     authorization: "8746c452-39d4-4cd4-8e82-ac5a93e07813",
@@ -123,7 +124,7 @@ const cardSection = new Section(
       const newCard = new Card(card, "#element-template", (evt) => {
         imgPopup.open(evt);
       });
-      cardSection.addItem(newCard.createCard());
+      cardSection.addItem(newCard.createCard(userData._id));
     },
   },
   ".elements"
@@ -139,7 +140,7 @@ const addCardPopupClass = new PopupWithForm(async () => {
   const newCard = new Card(createdCard, "#element-template", (evt) => {
     imgPopup.open(evt);
   })
-  elementSection.prepend(newCard.createCard());
+  elementSection.prepend(newCard.createCard(userData._id));
   addCardPopupClass.close();
 }, addCardPopup);
 addCardPopupClass.setEventListeners();
@@ -147,3 +148,7 @@ addCardPopupClass.setEventListeners();
 cardAddButton.addEventListener("click", () => {
   addCardPopupClass.open();
 });
+
+// Confirm Delete Card Popup
+export const deleteCardPopup = new Popup(document.querySelector(".popup-delete"));
+deleteCardPopup.setEventListeners();
