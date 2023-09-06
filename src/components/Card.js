@@ -1,4 +1,3 @@
-import { initialCards } from "../scripts/index.js";
 import likeImg from "../images/like.svg";
 import likeImgFilled from "../images/like(filled).svg";
 
@@ -6,6 +5,7 @@ export default class Card {
   constructor(cardData, templateSelector, handleCardClick) {
     this.name = cardData.name;
     this.link = cardData.link;
+    this.likes = cardData.likes;
     this.template = templateSelector;
     this.handleCardClick = handleCardClick;
   }
@@ -24,6 +24,7 @@ export default class Card {
     this._setEventListener(newCardElement, ".element__delete-button", "click", this._deleteCard);
     this._setEventListener(newCardElement, ".element__image", "click", this.handleCardClick);
     this._setEventListener(newCardElement, ".element__like-button", "click", this._likeCard);
+    newCardElement.querySelector(".element__like-counter").textContent = this.likes.length;
     newCardElement.querySelector(".element__title").textContent = this.name;
     newCardElement.querySelector(".element__image").src = this.link;
     newCardElement.querySelector(".element__image").alt = this.name;

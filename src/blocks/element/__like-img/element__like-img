@@ -1,10 +1,6 @@
 .element__like-img {
-  width: 21px;
-  height: 19px;
-  margin: auto 30px auto 0;
+  width: 17px;
+  height: 15px;
+  margin-right: 10px;
 }
 
-/* .element__like-img:active {
-  opacity: 100%;
-  background-image: url("../../../images/like\(filled\).svg");
-} */

@@ -57,13 +57,16 @@
                 </div>
                 <div class="element__description">
                   <h2 class="element__title"></h2>
-                  <button type="button" class="element__like-button">
-                    <img
-                      src="<%= require('./images/like.svg') %>"
-                      alt="Tombol Like"
-                      class="element__like-img"
-                    />
-                  </button>
+                  <div class="element__like-container">
+                    <button type="button" class="element__like-button">
+                      <img
+                        src="<%= require('./images/like.svg') %>"
+                        alt="Tombol Like"
+                        class="element__like-img"
+                      />
+                    </button>
+                    <span class="element__like-counter">1</span>
+                  </div>
                 </div>
               </form>
             </article>

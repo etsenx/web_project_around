@@ -4,38 +4,60 @@ import FormValidator from "../components/FormValidator.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import UserInfo from "../components/UserInfo.js";
+import Api from "../components/Api.js";
+import {
+  editProfilePopup,
+  editPopupForm,
+  profileName,
+  profileAbout,
+  editPopupAboutInput,
+  editPopupNameInput,
+  editButton,
+  addCardPopup,
+  addCardPopupForm,
+  imgPopupSelector,
+  elementSection,
+  cardAddButton,
+  profilePicture
+} from "./utils.js";
 import "../pages/index.css";
 
-export const initialCards = [
-  {
-    name: "Lembah Yosemite",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
+// export const initialCards = [
+//   {
+//     name: "Lembah Yosemite",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
+//   },
+//   {
+//     name: "Danau Louise",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
+//   },
+//   {
+//     name: "Pegunungan Gundul",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
+//   },
+//   {
+//     name: "Gunung Latemar",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
+//   },
+//   {
+//     name: "Taman Nasional Vanoise",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
+//   },
+//   {
+//     name: "Lago di Braies",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
+//   },
+// ];
+
+const api = new Api({
+  baseUrl: "https://around.nomoreparties.co/v1/web_id_03",
+  headers: {
+    authorization: "8746c452-39d4-4cd4-8e82-ac5a93e07813",
+    "Content-Type": "application/json",
   },
-  {
-    name: "Danau Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-  },
-  {
-    name: "Pegunungan Gundul",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-  },
-  {
-    name: "Gunung Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-  },
-  {
-    name: "Taman Nasional Vanoise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-  },
-];
+});
 
 // Edit Profile Popup
-const editProfilePopup = document.querySelector(".popup-edit");
-const editPopupForm = editProfilePopup.querySelector(".popup__form");
 const editPopupFormValidator = new FormValidator(
   {
     inputSelector: ".popup__input",
@@ -48,26 +70,24 @@ const editPopupFormValidator = new FormValidator(
 );
 editPopupFormValidator.enableValidation();
 
-
-// Edit Profile Popup Form
-const profileName = document.querySelector(".profile-info__name");
-const profileAbout = document.querySelector(".profile-info__about");
-const editPopupNameInput = editProfilePopup.querySelector(".popup__input-name");
-const editPopupAboutInput = editProfilePopup.querySelector(".popup__input-about");
-
 // User Data
-const newUser = new UserInfo({
-  name: profileName.textContent,
-  about: profileAbout.textContent
-})
+const userData = await api.getUserInformation();
+profileName.textContent = userData.name;
+profileAbout.textContent = userData.about;
+profilePicture.src = userData.avatar;
 
-const editProfilePopupClass = new PopupWithForm(() => {
-  newUser.setUserInfo();
+const newUser = new UserInfo({
+  name: userData.name,
+  about: userData.about,
+});
+
+const editProfilePopupClass = new PopupWithForm(async () => {
+  api.updateProfile(editPopupNameInput.value, editPopupAboutInput.value);
+  newUser.setUserInfo(await api.getUserInformation());
   editProfilePopupClass.close();
-}, editProfilePopup)
+}, editProfilePopup);
 editProfilePopupClass.setEventListeners();
 
-const editButton = document.querySelector(".profile-info__edit-button");
 editButton.addEventListener("click", () => {
   const userInfo = newUser.getUserInfo();
   editPopupNameInput.value = userInfo.name;
@@ -76,8 +96,6 @@ editButton.addEventListener("click", () => {
 });
 
 // Add Card Popup
-const addCardPopup = document.querySelector(".popup-add");
-const addCardPopupForm = addCardPopup.querySelector(".popup__form");
 const addCardPopupFormValidator = new FormValidator(
   {
     inputSelector: ".popup__input",
@@ -91,11 +109,11 @@ const addCardPopupFormValidator = new FormValidator(
 addCardPopupFormValidator.enableValidation();
 
 // Card Img Popup
-const imgPopupSelector = document.querySelector(".popup-img");
 const imgPopup = new PopupWithImage(imgPopupSelector);
 imgPopup.setEventListeners();
 
 // Create Card Section
+const initialCards = await api.getCards();
 const cardSection = new Section(
   {
     // Initial Card Elements
@@ -114,23 +132,18 @@ const cardSection = new Section(
 cardSection.renderItems();
 
 // Add New Card Popup Form
-const elementSection = document.querySelector(".elements");
-const addCardPopupClass = new PopupWithForm(() => {
-  const inputTitle = addCardPopupClass._getInputValues(".popup__input-title");
-  const inputUrl = addCardPopupClass._getInputValues(".popup__input-url");
-  initialCards.unshift({
-    name: inputTitle,
-    link: inputUrl,
-  });
-  const newCard = new Card(initialCards[0], "#element-template", (evt) => {
+const addCardPopupClass = new PopupWithForm(async () => {
+  const inputTitle = addCardPopupClass.getInputValues(".popup__input-title");
+  const inputUrl = addCardPopupClass.getInputValues(".popup__input-url");
+  const createdCard = await api.addCard(inputTitle, inputUrl);
+  const newCard = new Card(createdCard, "#element-template", (evt) => {
     imgPopup.open(evt);
-  });
+  })
   elementSection.prepend(newCard.createCard());
   addCardPopupClass.close();
 }, addCardPopup);
 addCardPopupClass.setEventListeners();
 
-const cardAddButton = document.querySelector(".profile__add-button");
 cardAddButton.addEventListener("click", () => {
   addCardPopupClass.open();
 });

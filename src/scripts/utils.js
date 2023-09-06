@@ -1,25 +1,24 @@
-
-const elementSection = document.querySelector(".elements");
-const allCloseButton = document.querySelectorAll(".popup__close");
-const editButton = document.querySelector(".profile-info__edit-button");
-const cardAddButton = document.querySelector(".profile__add-button");
-const profileName = document.querySelector(".profile-info__name");
-const profileAbout = document.querySelector(".profile-info__about");
-const allPopup = Array.from(document.querySelectorAll(".popup"));
+export const elementSection = document.querySelector(".elements");
+export const allCloseButton = document.querySelectorAll(".popup__close");
+export const editButton = document.querySelector(".profile-info__edit-button");
+export const cardAddButton = document.querySelector(".profile__add-button");
+export const profileName = document.querySelector(".profile-info__name");
+export const profileAbout = document.querySelector(".profile-info__about");
+export const profilePicture = document.querySelector(".profile__picture");
 
 // Edit Profile Popup
-const editProfilePopup = document.querySelector(".popup-edit");
-const editPopupNameInput = editProfilePopup.querySelector(".popup__input-name");
-const editPopupAboutInput = editProfilePopup.querySelector(
+export const editProfilePopup = document.querySelector(".popup-edit");
+export const editPopupNameInput = editProfilePopup.querySelector(".popup__input-name");
+export const editPopupAboutInput = editProfilePopup.querySelector(
   ".popup__input-about"
 );
-const editPopupForm = editProfilePopup.querySelector(".popup__form");
+export const editPopupForm = editProfilePopup.querySelector(".popup__form");
 
 // Add Card Popup
-const addCardPopup = document.querySelector(".popup-add");
-const addCardInputTitle = addCardPopup.querySelector(".popup__input-title");
-const addCardInputUrl = addCardPopup.querySelector(".popup__input-url");
-const addCardPopupForm = addCardPopup.querySelector(".popup__form");
+export const addCardPopup = document.querySelector(".popup-add");
+export const addCardPopupForm = addCardPopup.querySelector(".popup__form");
 
 // Image Popup
-const imagePopup = document.querySelector(".popup-img");
+export const imgPopupSelector = document.querySelector(".popup-img");
+
+// Element Section
