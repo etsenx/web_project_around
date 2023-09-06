@@ -41,14 +41,16 @@ export default class Card {
   // Event handler
   _deleteCard(event) {
     event.preventDefault();
-    const selectedElement = event.target.closest(".element");
-    const selectedElementTitle =
-      selectedElement.querySelector(".element__title").textContent;
-    const arrayIndex = initialCards.findIndex(
-      (card) => card.name === selectedElementTitle
-    );
-    initialCards.splice(arrayIndex, 1);
-    selectedElement.remove();
+    const deletePopup = document.querySelector(".popup-delete");
+    deletePopup.classList.add("popup_opened");
+    // const selectedElement = event.target.closest(".element");
+    // const selectedElementTitle =
+    //   selectedElement.querySelector(".element__title").textContent;
+    // const arrayIndex = initialCards.findIndex(
+    //   (card) => card.name === selectedElementTitle
+    // );
+    // initialCards.splice(arrayIndex, 1);
+    // selectedElement.remove();
   }
 
   _likeCard(event) {
