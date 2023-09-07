@@ -45,7 +45,7 @@ export default class Api {
   }
 
   // Update Profile
-  updateProfile(name, about) {
+  updateProfile(saveButton ,name, about) {
     fetch(`${this.baseUrl}/users/me`, {
       method: "PATCH",
       headers: this.headers,
@@ -62,10 +62,13 @@ export default class Api {
       })
       .catch((err) => {
         return Promise.reject(err);
-      });
+      })
+      .finally(() => {
+        saveButton.textContent = "Done";
+      })
   }
 
-  updateProfilePicture(avatar) {
+  updateProfilePicture(saveButton, avatar) {
     return fetch(`${this.baseUrl}/users/me/avatar`, {
       method: "PATCH",
       headers: this.headers,
@@ -85,9 +88,12 @@ export default class Api {
     .catch((err) => {
       return Promise.reject(err);
     })
+    .finally(() => {
+      saveButton.textContent = "Simpan";
+    })
   }
 
-  addCard(name, link) {
+  addCard(saveButton, name, link) {
     const newCard = fetch(`${this.baseUrl}/cards`, {
       method: "POST",
       headers: this.headers,
@@ -107,7 +113,10 @@ export default class Api {
       })
       .catch((err) => {
         return Promise.reject(err);
-      });
+      })
+      .finally(() => {
+        saveButton.textContent = "Simpan";
+      })
     return newCard;
   }
 

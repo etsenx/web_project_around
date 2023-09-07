@@ -56,7 +56,9 @@ const newUser = new UserInfo({
 });
 
 const editProfilePopupClass = new PopupWithForm(async () => {
-  api.updateProfile(editPopupNameInput.value, editPopupAboutInput.value);
+  const saveButton = editProfilePopup.querySelector(".popup__save");
+  saveButton.textContent = "Menyimpan...";
+  api.updateProfile(saveButton ,editPopupNameInput.value, editPopupAboutInput.value);
   newUser.setUserInfo(await api.getUserInformation());
   editProfilePopupClass.close();
 }, editProfilePopup);
@@ -109,7 +111,9 @@ cardSection.renderItems();
 const addCardPopupClass = new PopupWithForm(async () => {
   const inputTitle = addCardPopupClass.getInputValues(".popup__input-title");
   const inputUrl = addCardPopupClass.getInputValues(".popup__input-url");
-  const createdCard = await api.addCard(inputTitle, inputUrl);
+  const saveButton = addCardPopupForm.querySelector(".popup__save");
+  saveButton.textContent = "Menyimpan..."
+  const createdCard = await api.addCard(saveButton, inputTitle, inputUrl);
   const newCard = new Card(createdCard, "#element-template", (evt) => {
     imgPopup.open(evt);
   })
@@ -130,7 +134,9 @@ deleteCardPopup.setEventListeners();
 const changeProfPicPopup = document.querySelector(".popup-prof-pic");
 const changeProfPicPopupClass = new PopupWithForm(async () => {
   const inputUrl = changeProfPicPopupClass.getInputValues(".popup-prof-pic__input");
-  const newPicture = await api.updateProfilePicture(inputUrl);
+  const saveButton = changeProfPicPopup.querySelector(".popup__save");
+  saveButton.textContent = "Menyimpan..."
+  const newPicture = await api.updateProfilePicture(saveButton ,inputUrl);
   profilePicture.src = newPicture;
   changeProfPicPopupClass.close();
 }, changeProfPicPopup)
