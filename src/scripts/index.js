@@ -23,33 +23,6 @@ import {
 } from "./utils.js";
 import "../pages/index.css";
 
-// export const initialCards = [
-//   {
-//     name: "Lembah Yosemite",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_yosemite.jpg",
-//   },
-//   {
-//     name: "Danau Louise",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lake-louise.jpg",
-//   },
-//   {
-//     name: "Pegunungan Gundul",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_bald-mountains.jpg",
-//   },
-//   {
-//     name: "Gunung Latemar",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_latemar.jpg",
-//   },
-//   {
-//     name: "Taman Nasional Vanoise",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_vanoise.jpg",
-//   },
-//   {
-//     name: "Lago di Braies",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/web-code/moved_lago.jpg",
-//   },
-// ];
-
 export const api = new Api({
   baseUrl: "https://around.nomoreparties.co/v1/web_id_03",
   headers: {
@@ -152,3 +125,32 @@ cardAddButton.addEventListener("click", () => {
 // Confirm Delete Card Popup
 export const deleteCardPopup = new Popup(document.querySelector(".popup-delete"));
 deleteCardPopup.setEventListeners();
+
+// Change Profile Picture Popup
+const changeProfPicPopup = document.querySelector(".popup-prof-pic");
+const changeProfPicPopupClass = new PopupWithForm(async () => {
+  const inputUrl = changeProfPicPopupClass.getInputValues(".popup-prof-pic__input");
+  const newPicture = await api.updateProfilePicture(inputUrl);
+  profilePicture.src = newPicture;
+  changeProfPicPopupClass.close();
+}, changeProfPicPopup)
+changeProfPicPopupClass.setEventListeners();
+
+// Change Profile Form Validator
+const changeProfPicForm = changeProfPicPopup.querySelector(".popup__form");
+const changeProfPicPopupValidator = new FormValidator(
+  {
+    inputSelector: ".popup__input",
+    submitButtonSelector: ".popup__save",
+    inactiveButtonClass: "popup__save_disabled",
+    inputErrorClass: "popup__input_type_error",
+    errorClass: "popup__error_visible",
+  },
+  changeProfPicForm
+);
+changeProfPicPopupValidator.enableValidation();
+
+const profilePictureContainer = document.querySelector(".profile-pic");
+profilePictureContainer.addEventListener("click", () => {
+  changeProfPicPopupClass.open()
+})

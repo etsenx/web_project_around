@@ -65,6 +65,28 @@ export default class Api {
       });
   }
 
+  updateProfilePicture(avatar) {
+    return fetch(`${this.baseUrl}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this.headers,
+      body: JSON.stringify({
+        avatar
+      })
+    })
+    .then((res) => {
+      if (res.status === 200) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
+    })
+    .then((profile) => {
+      return profile.avatar
+    })
+    .catch((err) => {
+      return Promise.reject(err);
+    })
+  }
+
   addCard(name, link) {
     const newCard = fetch(`${this.baseUrl}/cards`, {
       method: "POST",
@@ -142,4 +164,5 @@ export default class Api {
         return Promise.reject(err);
       });
   }
+
 }
